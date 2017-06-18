@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="radius_petcardview_corners">15dp</dimen>
+    <dimen name="padding_petcardview_petimage">10dp</dimen>
+    <dimen name="margin_petcardview_petname_">15dp</dimen>
+    <dimen name="margin_petcardview_bonebutton">20dp</dimen>
+    <dimen name="height_petcardview_petimage">200dp</dimen>
+    <dimen name="margin_petcardview_ratingbone">15dp</dimen>
+    <dimen name="height_petcardview">250dp</dimen>
+
+    <dimen name="elevation_toolbar">4dp</dimen>
+
+    <dimen name="textsize_about_name">30sp</dimen>
+
+    <dimen name="textsize_petprofile_petname">20sp</dimen>
+    <dimen name="size_petprofile_profilepicture">100dp</dimen>
+    <dimen name="margin_petprofile_profilepicture">20dp</dimen>
+    <dimen name="width_petprofile_profilepictureborder">5dp</dimen>
+</resources>

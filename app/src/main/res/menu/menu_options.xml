@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--<item-->
+        <!--android:id="@+id/item_optionsmenu_contact"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/optionsmenu_contacttitle"></item>-->
+    <!--<item-->
+        <!--android:id="@+id/item_optionsmenu_about"-->
+        <!--android:orderInCategory="101"-->
+        <!--android:title="@string/optionsmenu_abouttitle"></item>-->
+    <item
+        android:id="@+id/item_optionsmenu_bluetooth"
+        android:icon="@drawable/ic_main_bluetooth"
+        android:orderInCategory="102"
+        android:title="@string/optionsmenu_connectbluetooth"
+        app:showAsAction="always"></item>
+</menu>

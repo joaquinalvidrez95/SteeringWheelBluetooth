@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">SteeringWheelBluetooth</string>
+
+    <string name="optionsmenu_abouttitle">About</string>
+    <string name="optionsmenu_contacttitle">Contact</string>
+    <string name="optionsmenu_connectbluetooth">Connect bluetooth</string>
+
+    <string name="petcardview_petname">Pork</string>
+    <string name="petadapter_likesnackbarmessage">Liked </string>
+    <string name="recentlylikedpets_toolbartitle">Recently Liked Pets</string>
+
+    <string name="contact_namehint">Name</string>
+    <string name="contact_emailhint">Email</string>
+    <string name="contact_commenthint">Comment</string>
+    <string name="contact_toolbartitle">Contact</string>
+    <string name="contact_sendbuttontext">Send</string>
+
+    <string name="petprofile_petname">Pork</string>
+
+    <string name="bluetooth_toolbartitle">Bluetooth scanning</string>
+</resources>

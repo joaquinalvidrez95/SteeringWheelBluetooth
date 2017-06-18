@@ -1,7 +1,13 @@
 package com.joaquinalan.steeringwheelbluetooth.view.activity;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,15 +15,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.joaquinalan.steeringwheelbluetooth.R;
+import com.joaquinalan.steeringwheelbluetooth.broadcastreceiver.BroadcastDeviceFound;
+import com.joaquinalan.steeringwheelbluetooth.broadcastreceiver.BroadcastStateBluetooth;
 import com.joaquinalan.steeringwheelbluetooth.presenter.BluetoothPresenter;
 import com.joaquinalan.steeringwheelbluetooth.presenter.MvpBluetoothPresenter;
 import com.joaquinalan.steeringwheelbluetooth.view.BluetoothView;
 import com.joaquinalan.steeringwheelbluetooth.view.adapter.FoundDevicesAdapter;
 
+import java.util.List;
+
 public class BluetoothActivity extends AppCompatActivity implements View.OnClickListener, BluetoothView, FoundDevicesAdapter.ListItemClickListener {
     private RecyclerView mRecyclerViewFoundDevices;
     private FoundDevicesAdapter mFoundDevicesAdapter;
     private MvpBluetoothPresenter mPresenter;
+    private View mViewForSnackbar;
+    private BroadcastReceiver mBroadcastDeviceFound;
+    private BroadcastReceiver mBroadcastStateBluetooth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +48,22 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
         mFoundDevicesAdapter = new FoundDevicesAdapter(this);
 
         setUpRecyclerView();
-
         setUpToolbar(toolbar);
-
         mFloatingActionButtonToogleBluetooth.setOnClickListener(this);
 
+
         mPresenter = new BluetoothPresenter(this);
+        mBroadcastDeviceFound = new BroadcastDeviceFound(mPresenter);
+        mBroadcastStateBluetooth = new BroadcastStateBluetooth(mPresenter);
+
+        IntentFilter intentBluetoothState = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+        registerReceiver(mBroadcastStateBluetooth, intentBluetoothState);
+
+        IntentFilter intentDeviceFound = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        registerReceiver(mBroadcastDeviceFound, intentDeviceFound);
+
+
+        mPresenter.onCreate();
     }
 
     private void setUpToolbar(Toolbar toolbar) {
@@ -60,6 +83,8 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onResume() {
         super.onResume();
+        IntentFilter discoverDevicesIntent = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        registerReceiver(mBroadcastDeviceFound, discoverDevicesIntent);
         mPresenter.onResume();
     }
 
@@ -70,7 +95,16 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        unregisterReceiver(mBroadcastDeviceFound);
+        unregisterReceiver(mBroadcastStateBluetooth);
+    }
+
+    @Override
     public void onClick(View v) {
+        mViewForSnackbar = v;
         switch (v.getId()) {
             case R.id.floatingactionbutton_bluetooth_tooglebluetooth:
                 mPresenter.onToogleButtonClicked();
@@ -80,5 +114,23 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onListItemClicked(int clickedItemIndex) {
 
+    }
+
+    @Override
+    public void showBluetoothRequest() {
+        Intent enableBTIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+        startActivity(enableBTIntent);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Snackbar snackbar = Snackbar
+                .make(mViewForSnackbar, message, Snackbar.LENGTH_LONG);
+        snackbar.show();
+    }
+
+    @Override
+    public void setUpAdapter(List<String> devicesNames) {
+        mFoundDevicesAdapter.updateData(devicesNames);
     }
 }

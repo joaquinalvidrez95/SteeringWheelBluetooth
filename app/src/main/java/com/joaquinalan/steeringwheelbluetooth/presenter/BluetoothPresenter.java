@@ -1,7 +1,9 @@
 package com.joaquinalan.steeringwheelbluetooth.presenter;
 
 import com.joaquinalan.steeringwheelbluetooth.model.bluetooth.Bluetooth;
+import com.joaquinalan.steeringwheelbluetooth.model.bluetooth.Hc05;
 import com.joaquinalan.steeringwheelbluetooth.view.BluetoothView;
+import com.joaquinalan.steeringwheelbluetooth.view.MessageConstants;
 
 /**
  * Created by joaquinalan on 18/06/2017.
@@ -18,18 +20,41 @@ public class BluetoothPresenter implements MvpBluetoothPresenter {
 
     @Override
     public void onToogleButtonClicked() {
-        if (mBluetooth.isBluetoothEnabled()) {
-
+        if (!mBluetooth.isBluetoothEnabled()) {
+            mView.showBluetoothRequest();
+        } else {
+            mBluetooth.disableBluetooth();
+            mView.showMessage(MessageConstants.BLUETOOTH_DISABLED);
         }
     }
 
     @Override
     public void onResume() {
-
     }
 
     @Override
     public void onPause() {
 
+    }
+
+    @Override
+    public void onCreate() {
+        if (mBluetooth.isBluetoothEnabled()) {
+            mBluetooth.startDiscovery();
+        } else {
+            mView.showBluetoothRequest();
+        }
+    }
+
+    @Override
+    public void onBluetoothRequestAccepted() {
+        mView.showMessage(MessageConstants.BLUETOOTH_ENEABLED);
+        mBluetooth.startDiscovery();
+    }
+
+    @Override
+    public void onBluetoothDeviceFound(Hc05 device) {
+        mBluetooth.addFoundDevice(device.getBluetoothDevice());
+        mView.setUpAdapter(mBluetooth.getDevicesNames());
     }
 }

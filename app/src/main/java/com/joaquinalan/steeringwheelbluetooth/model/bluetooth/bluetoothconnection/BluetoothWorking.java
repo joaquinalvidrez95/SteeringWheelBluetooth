@@ -77,14 +77,14 @@ public class BluetoothWorking extends Thread {
 
             // Share the sent message with the UI activity.
 //                Message writtenMsg = mHandler.obtainMessage(
-//                        MessageConstants.MESSAGE_WRITE, -1, -1, mmBuffer);
+//                        BluetoothConstants.MESSAGE_WRITE, -1, -1, mmBuffer);
 //                writtenMsg.sendToTarget();
         } catch (IOException e) {
             Log.e(TAG, "Error occurred when sending data", e);
 
             // Send a failure message back to the activity.
 //                Message writeErrorMsg =
-//                        mHandler.obtainMessage(MessageConstants.MESSAGE_TOAST);
+//                        mHandler.obtainMessage(BluetoothConstants.MESSAGE_TOAST);
 //                Bundle bundle = new Bundle();
 //                bundle.putString("toast",
 //                        "Couldn't send data to the other device");

@@ -70,6 +70,10 @@ public class Bluetooth {
         return devicesNames;
     }
 
+    public void disableBluetooth() {
+        mBluetoothAdapter.disable();
+    }
+
 //    @Override
 //    public void onSensorChanged(float[] mOrientationAngles) {
 //        int angle = CalculatorSteeringWheelState.calculateSteeringWheelState(mOrientationAngles);

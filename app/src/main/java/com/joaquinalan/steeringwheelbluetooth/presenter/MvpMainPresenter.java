@@ -8,5 +8,7 @@ public interface MvpMainPresenter {
 
     void onBluetoothButtonClicked();
 
-    void onSteeringWheelChanged(int steeringWheelState);
+    void onResume();
+
+    void onPause();
 }

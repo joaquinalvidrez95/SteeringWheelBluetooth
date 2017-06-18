@@ -6,6 +6,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
+import com.joaquinalan.steeringwheelbluetooth.view.Contextable;
+
 /**
  * Created by joaquinalan on 15/06/2017.
  */
@@ -30,9 +32,9 @@ public class SteeringWheelSensorImpl implements SensorEventListener, SteeringWhe
      * <p>
      * Used to name the worker thread, important only for debugging.
      */
-    public SteeringWheelSensorImpl(SteeringWheelListener steeringWheelListener) {
+    public SteeringWheelSensorImpl(SteeringWheelListener steeringWheelListener, Contextable contextable) {
         mSteeringWheelListener = steeringWheelListener;
-        mSensorManager = (SensorManager) steeringWheelListener.getContext().getSystemService(Context.SENSOR_SERVICE);
+        mSensorManager = (SensorManager) contextable.getContext().getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mMagnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
     }

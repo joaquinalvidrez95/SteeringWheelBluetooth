@@ -10,19 +10,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.joaquinalan.steeringwheelbluetooth.R;
-import com.joaquinalan.steeringwheelbluetooth.model.SteeringWheelListener;
-import com.joaquinalan.steeringwheelbluetooth.model.SteeringWheelSensor;
-import com.joaquinalan.steeringwheelbluetooth.model.SteeringWheelSensorImpl;
 import com.joaquinalan.steeringwheelbluetooth.presenter.MainPresenter;
 import com.joaquinalan.steeringwheelbluetooth.presenter.MvpMainPresenter;
 import com.joaquinalan.steeringwheelbluetooth.view.MvpMainView;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, MvpMainView, SteeringWheelListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, MvpMainView {
     private FloatingActionButton mFloatingActionButtonBluetooth;
     private MvpMainPresenter mPresenter;
     private TextView mTextViewState;
-    private SteeringWheelSensor mSteeringWheelSensor;
+//    private SteeringWheelSensor mSteeringWheelSensor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mFloatingActionButtonBluetooth.setOnClickListener(this);
 
-        mSteeringWheelSensor = new SteeringWheelSensorImpl(this);
-        mSteeringWheelSensor.start();
+        //mSteeringWheelSensor.start();
 
 //
 //        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
@@ -46,6 +42,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            getSupportActionBar().setTitle(R.string.app_name);
 //            getSupportActionBar().setIcon(R.drawable.ic_main_steeringwheel);
 //        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mPresenter.onPause();
     }
 
     @Override
@@ -78,10 +86,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return getApplicationContext();
     }
 
-    @Override
-    public void onSteeringWheelChanged(int steeringWheelState) {
-        mPresenter.onSteeringWheelChanged(steeringWheelState);
-    }
+//    @Override
+//    public void onSteeringWheelChanged(int steeringWheelState) {
+//        mPresenter.onSteeringWheelChanged(steeringWheelState);
+//    }
 
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {

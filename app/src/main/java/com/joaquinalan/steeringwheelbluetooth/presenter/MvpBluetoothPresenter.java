@@ -18,4 +18,6 @@ public interface MvpBluetoothPresenter {
     void onBluetoothRequestAccepted();
 
     void onBluetoothDeviceFound(Hc05 device);
+
+    void onListItemClicked(int clickedItemIndex);
 }

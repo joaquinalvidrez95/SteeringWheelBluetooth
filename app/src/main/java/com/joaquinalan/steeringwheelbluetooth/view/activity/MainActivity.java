@@ -16,6 +16,7 @@ import com.joaquinalan.steeringwheelbluetooth.view.MvpMainView;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, MvpMainView {
+    private static final int REQUEST_DEVICE_CODE = 0;
     private FloatingActionButton mFloatingActionButtonBluetooth;
     private MvpMainPresenter mPresenter;
     private TextView mTextViewState;
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void startBluetoothActivity() {
         Intent bluetoothIntent = new Intent(this, BluetoothActivity.class);
-        startActivity(bluetoothIntent);
+        startActivityForResult(bluetoothIntent, REQUEST_DEVICE_CODE);
     }
 
     @Override

@@ -113,7 +113,7 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onListItemClicked(int clickedItemIndex) {
-
+        mPresenter.onListItemClicked(clickedItemIndex);
     }
 
     @Override

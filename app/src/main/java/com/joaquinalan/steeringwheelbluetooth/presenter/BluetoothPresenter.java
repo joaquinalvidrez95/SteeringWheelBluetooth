@@ -57,4 +57,9 @@ public class BluetoothPresenter implements MvpBluetoothPresenter {
         mBluetooth.addFoundDevice(device.getBluetoothDevice());
         mView.setUpAdapter(mBluetooth.getDevicesNames());
     }
+
+    @Override
+    public void onListItemClicked(int clickedItemIndex) {
+        mBluetooth.startConnection(clickedItemIndex);
+    }
 }

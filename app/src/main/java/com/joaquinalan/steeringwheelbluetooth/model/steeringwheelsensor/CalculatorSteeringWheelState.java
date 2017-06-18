@@ -1,4 +1,4 @@
-package com.joaquinalan.steeringwheelbluetooth.model;
+package com.joaquinalan.steeringwheelbluetooth.model.steeringwheelsensor;
 
 /**
  * Created by joaquinalan on 16/06/2017.

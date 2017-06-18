@@ -1,8 +1,8 @@
 package com.joaquinalan.steeringwheelbluetooth.presenter;
 
-import com.joaquinalan.steeringwheelbluetooth.model.SteeringWheelListener;
-import com.joaquinalan.steeringwheelbluetooth.model.SteeringWheelSensor;
-import com.joaquinalan.steeringwheelbluetooth.model.SteeringWheelSensorImpl;
+import com.joaquinalan.steeringwheelbluetooth.model.steeringwheelsensor.SteeringWheelListener;
+import com.joaquinalan.steeringwheelbluetooth.model.steeringwheelsensor.SteeringWheelSensor;
+import com.joaquinalan.steeringwheelbluetooth.model.steeringwheelsensor.SteeringWheelSensorImpl;
 import com.joaquinalan.steeringwheelbluetooth.view.MvpMainView;
 
 /**

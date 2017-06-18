@@ -1,4 +1,4 @@
-package com.joaquinalan.steeringwheelbluetooth.model;
+package com.joaquinalan.steeringwheelbluetooth.model.steeringwheelsensor;
 
 import android.content.Context;
 import android.hardware.Sensor;

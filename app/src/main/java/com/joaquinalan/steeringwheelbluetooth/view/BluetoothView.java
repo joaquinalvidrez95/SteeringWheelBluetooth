@@ -12,4 +12,8 @@ public interface BluetoothView {
     void showMessage(String message);
 
     void setUpAdapter(List<String> devicesNames);
+
+    //void returnDevice(Hc05 device);
+
+    void goToMainActivity(String adressDevice);
 }

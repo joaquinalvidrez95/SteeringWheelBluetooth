@@ -7,5 +7,7 @@ package com.joaquinalan.steeringwheelbluetooth.view;
 public interface MvpMainView extends Contextable {
     void startBluetoothActivity();
 
+    void showMessage(String message);
+
     void showSteeringWheelState(String state);
 }

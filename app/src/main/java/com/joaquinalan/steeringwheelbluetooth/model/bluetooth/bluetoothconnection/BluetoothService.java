@@ -18,6 +18,7 @@ public class BluetoothService implements BluetoothConnection {
     //private AcceptThread mAcceptThread;
     private BluetoothServer mBluetoothServer;
     private BluetoothWorking mBluetoothWorking;
+    private BluetoothServiceListener mBluetoothServiceListener;
 
     public BluetoothService(Handler handler) {
         //  mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -25,7 +26,8 @@ public class BluetoothService implements BluetoothConnection {
         setup();
     }
 
-    public BluetoothService() {
+    public BluetoothService(BluetoothServiceListener bluetoothServiceListener) {
+        mBluetoothServiceListener = bluetoothServiceListener;
         //  mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         setup();
     }
@@ -99,7 +101,7 @@ public class BluetoothService implements BluetoothConnection {
     @Override
     public void onConnectedSocket(BluetoothSocket bluetoothSocket) {
         Log.d(TAG, "connected: Starting.");
-
+        mBluetoothServiceListener.onConnectedSocket();
         // Cancel the thread that completed the connection
 //        if (mConnectThread != null) {
 //            mConnectThread.cancel();

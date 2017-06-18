@@ -62,7 +62,6 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
         IntentFilter intentDeviceFound = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         registerReceiver(mBroadcastDeviceFound, intentDeviceFound);
 
-
         mPresenter.onCreate();
     }
 
@@ -125,12 +124,31 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void showMessage(String message) {
         Snackbar snackbar = Snackbar
-                .make(mViewForSnackbar, message, Snackbar.LENGTH_LONG);
+                .make(findViewById(R.id.floatingactionbutton_bluetooth_tooglebluetooth), message, Snackbar.LENGTH_LONG);
         snackbar.show();
+        //android.R.id.content);
     }
 
     @Override
     public void setUpAdapter(List<String> devicesNames) {
         mFoundDevicesAdapter.updateData(devicesNames);
+    }
+
+//    @Override
+//    public void returnDevice(Hc05 device) {
+//        Intent intent;
+//        intent = new Intent();
+//        intent.putExtra(IntentExtras.FOUND_DEVICE, device);
+//        setResult(1, intent);
+//        finish();
+//    }
+
+    @Override
+    public void goToMainActivity(String adressDevice) {
+        Intent intent;
+        intent = new Intent();
+        intent.putExtra(IntentExtras.FOUND_DEVICE, adressDevice);
+        setResult(1, intent);
+        finish();
     }
 }

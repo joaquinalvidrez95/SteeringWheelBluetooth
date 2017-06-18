@@ -37,6 +37,7 @@ public class BroadcastStateBluetooth extends BroadcastReceiver {
                     //mBluetooth.startServerConnection();
                     break;
                 case BluetoothAdapter.STATE_TURNING_ON:
+                    mPresenter.onBluetoothTurningOn();
                     break;
             }
         }

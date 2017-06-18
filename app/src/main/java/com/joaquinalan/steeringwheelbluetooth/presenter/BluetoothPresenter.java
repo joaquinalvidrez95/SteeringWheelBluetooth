@@ -12,6 +12,7 @@ import com.joaquinalan.steeringwheelbluetooth.view.MessageConstants;
 public class BluetoothPresenter implements MvpBluetoothPresenter {
     private BluetoothView mView;
     private Bluetooth mBluetooth;
+//    private boolean mBluetoothTurningOn;
 
     public BluetoothPresenter(BluetoothView bluetoothView) {
         this.mView = bluetoothView;
@@ -21,7 +22,11 @@ public class BluetoothPresenter implements MvpBluetoothPresenter {
     @Override
     public void onToogleButtonClicked() {
         if (!mBluetooth.isBluetoothEnabled()) {
-            mView.showBluetoothRequest();
+            if (!mBluetooth.hasBluetooth()) {
+                mView.showMessage(MessageConstants.NOT_HAVING_BLUETOOTH);
+            }
+            mBluetooth.enable();
+            //mView.showBluetoothRequest();
         } else {
             mBluetooth.disableBluetooth();
             mView.showMessage(MessageConstants.BLUETOOTH_DISABLED);
@@ -41,8 +46,11 @@ public class BluetoothPresenter implements MvpBluetoothPresenter {
     public void onCreate() {
         if (mBluetooth.isBluetoothEnabled()) {
             mBluetooth.startDiscovery();
+            mView.showMessage(MessageConstants.CHOOSE_A_DEVICE);
         } else {
-            mView.showBluetoothRequest();
+            mBluetooth.enable();
+            //mView.showMessage(MessageConstants.ENABLE_BLUETOOTH);
+            //mView.showBluetoothRequest();
         }
     }
 
@@ -61,5 +69,12 @@ public class BluetoothPresenter implements MvpBluetoothPresenter {
     @Override
     public void onListItemClicked(int clickedItemIndex) {
         mBluetooth.startConnection(clickedItemIndex);
+        mView.goToMainActivity(mBluetooth.getAdressDevice(clickedItemIndex));
+    }
+
+    @Override
+    public void onBluetoothTurningOn() {
+        //mBluetoothTurningOn = true;
+        mView.showMessage("Bluetooth turning on");
     }
 }

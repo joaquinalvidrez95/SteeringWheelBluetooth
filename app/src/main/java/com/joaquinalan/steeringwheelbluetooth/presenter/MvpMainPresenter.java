@@ -11,4 +11,6 @@ public interface MvpMainPresenter {
     void onResume();
 
     void onPause();
+
+    void onDeviceChoosen(String deviceAdress);
 }

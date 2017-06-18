@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
@@ -46,6 +47,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //data.getSerializableExtra(IntentExtras.FOUND_DEVICE)
+        String deviceAdress = data.getStringExtra(IntentExtras.FOUND_DEVICE);
+        mPresenter.onDeviceChoosen(deviceAdress);
+        //Toast.makeText(this, deviceAdress, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         mPresenter.onResume();
@@ -75,6 +86,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void startBluetoothActivity() {
         Intent bluetoothIntent = new Intent(this, BluetoothActivity.class);
         startActivityForResult(bluetoothIntent, REQUEST_DEVICE_CODE);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Snackbar snackbar = Snackbar
+                .make(findViewById(R.id.floatingactionbutton_main_bluetooth), message, Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 
     @Override

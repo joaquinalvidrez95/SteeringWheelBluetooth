@@ -17,12 +17,13 @@ import com.joaquinalan.steeringwheelbluetooth.R;
 import com.joaquinalan.steeringwheelbluetooth.broadcastreceiver.BroadcastConnectionState;
 import com.joaquinalan.steeringwheelbluetooth.presenter.MainPresenter;
 import com.joaquinalan.steeringwheelbluetooth.presenter.MvpMainPresenter;
+import com.joaquinalan.steeringwheelbluetooth.view.MessageConstants;
 import com.joaquinalan.steeringwheelbluetooth.view.MvpMainView;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, MvpMainView {
     private static final int REQUEST_DEVICE_CODE = 0;
-    private FloatingActionButton mFloatingActionButtonBluetooth;
+    private FloatingActionButton mFloatingActionButtonSensor;
     private MvpMainPresenter mPresenter;
     private TextView mTextViewState;
     private BroadcastReceiver mBroadcastConnectionState;
@@ -34,10 +35,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         mPresenter = new MainPresenter(this);
+        FloatingActionButton mFloatingActionButtonBluetooth;
         mFloatingActionButtonBluetooth = (FloatingActionButton) findViewById(R.id.floatingactionbutton_main_bluetooth);
+        mFloatingActionButtonSensor = (FloatingActionButton) findViewById(R.id.floatingactionbutton_main_sensor);
+
         mTextViewState = (TextView) findViewById(R.id.textview_main_steeringwheelstate);
 
         mFloatingActionButtonBluetooth.setOnClickListener(this);
+        mFloatingActionButtonSensor.setOnClickListener(this);
 
         mBroadcastConnectionState = new BroadcastConnectionState(mPresenter);
 
@@ -86,6 +91,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.floatingactionbutton_main_bluetooth:
                 mPresenter.onBluetoothButtonClicked();
+                break;
+            case R.id.floatingactionbutton_main_sensor:
+                //v.setBackgroundResource(R.drawable.ic_main_pause);
+                mPresenter.onSensorButtonClicked();
+                break;
         }
     }
 
@@ -105,6 +115,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void showSteeringWheelState(String state) {
         mTextViewState.setText(state);
+    }
+
+    @Override
+    public void turnSensorButtonOn() {
+        Snackbar.make(findViewById(R.id.floatingactionbutton_main_sensor),
+                MessageConstants.STERERING_WHEEL_PAUSED, Snackbar.LENGTH_LONG).show();
+        mFloatingActionButtonSensor.setBackgroundResource(R.drawable.ic_main_play);
+    }
+
+    @Override
+    public void turnSensorButtonOff() {
+        Snackbar.make(findViewById(R.id.floatingactionbutton_main_sensor),
+                MessageConstants.STERERING_WHEEL_STARTED, Snackbar.LENGTH_LONG).show();
+        mFloatingActionButtonSensor.setBackgroundResource(R.drawable.ic_main_pause);
     }
 
     @Override

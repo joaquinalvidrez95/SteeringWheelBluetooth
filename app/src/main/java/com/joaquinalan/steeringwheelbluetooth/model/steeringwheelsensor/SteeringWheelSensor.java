@@ -10,4 +10,6 @@ public interface SteeringWheelSensor {
     void stop();
 
     void start();
+
+    boolean isEnable();
 }

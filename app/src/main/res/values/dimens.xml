@@ -19,4 +19,5 @@
     <dimen name="size_petprofile_profilepicture">100dp</dimen>
     <dimen name="margin_petprofile_profilepicture">20dp</dimen>
     <dimen name="width_petprofile_profilepictureborder">5dp</dimen>
+    <dimen name="marginbottom_fabsensor">70dp</dimen>
 </resources>

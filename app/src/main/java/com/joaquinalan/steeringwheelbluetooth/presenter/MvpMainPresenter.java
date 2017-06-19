@@ -17,4 +17,6 @@ public interface MvpMainPresenter {
     void onDeviceConnected();
 
     void onDeviceDisconnected();
+
+    void onSensorButtonClicked();
 }

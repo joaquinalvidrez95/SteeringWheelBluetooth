@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface BluetoothConstants {
     UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-    String SERVICE_NAME = "BluetoothService";
+    String SERVICE_NAME = "BluetoothService2";
     int MESSAGE_READ = 0;
     int MESSAGE_WRITE = 1;
     int MESSAGE_TOAST = 2;

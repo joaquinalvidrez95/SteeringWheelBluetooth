@@ -2,6 +2,8 @@ package com.joaquinalan.steeringwheelbluetooth.model.bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.os.Handler;
+import android.os.Message;
 
 import com.joaquinalan.steeringwheelbluetooth.model.bluetooth.bluetoothconnection.BluetoothService;
 import com.joaquinalan.steeringwheelbluetooth.model.bluetooth.bluetoothconnection.BluetoothServiceListener;
@@ -19,6 +21,18 @@ public class Bluetooth implements BluetoothServiceListener {
     private BluetoothDevicesCollection mDiscoveredDevices;
     private BluetoothService mBluetoothService;
     private BluetoothServiceListener mBluetoothServiceListener;
+
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+
+            byte[] readBuf = (byte[]) msg.obj;
+            int numberOfBytes = msg.arg1;
+
+            // construct a string from the valid bytes in the buffer
+            String readMessage = new String(readBuf, 0, numberOfBytes);
+        }
+    };
 
     /**
      * The Handler that gets information back from the BluetoothChatService
@@ -63,12 +77,13 @@ public class Bluetooth implements BluetoothServiceListener {
     }
 
     public void startConnection(int clickedItemIndex) {
-        mBluetoothService = new BluetoothService(this);
-        mBluetoothService.startClientConnection(mDiscoveredDevices.getDevice(clickedItemIndex));
+        //mBluetoothService = new BluetoothService2(this, mHandler);
+        mBluetoothService = new BluetoothService(mHandler);
+        mBluetoothService.startClient(mDiscoveredDevices.getDevice(clickedItemIndex));
     }
 
     public void startServerConnection() {
-        mBluetoothService = new BluetoothService(this);
+        mBluetoothService = new BluetoothService(mHandler);
     }
 
     public List<String> getDevicesNames() {
@@ -107,10 +122,11 @@ public class Bluetooth implements BluetoothServiceListener {
 
     public void startConnection(String deviceAdress, BluetoothServiceListener bluetoothServiceListener) {
         //mBluetoothServiceListener = bluetoothServiceListener;
-        mBluetoothService = new BluetoothService(this);
+        //mBluetoothService = new BluetoothService2(this, mHandler);
+        mBluetoothService = new BluetoothService(mHandler);
         for (BluetoothDevice bluetoothDevice : mBluetoothAdapter.getBondedDevices()) {
             if (bluetoothDevice.getAddress().equals(deviceAdress)) {
-                mBluetoothService.startClientConnection(bluetoothDevice);
+                mBluetoothService.startClient(bluetoothDevice);
             }
         }
     }

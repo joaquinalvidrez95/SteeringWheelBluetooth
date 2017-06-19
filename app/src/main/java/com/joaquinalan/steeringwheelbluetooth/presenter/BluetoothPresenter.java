@@ -68,7 +68,7 @@ public class BluetoothPresenter implements MvpBluetoothPresenter {
 
     @Override
     public void onListItemClicked(int clickedItemIndex) {
-        mBluetooth.startConnection(clickedItemIndex);
+        //mBluetooth.startConnection(clickedItemIndex);
         mView.goToMainActivity(mBluetooth.getAdressDevice(clickedItemIndex));
     }
 

@@ -31,7 +31,7 @@ public class MainPresenter implements MvpMainPresenter, SteeringWheelListener, B
 
     @Override
     public void onResume() {
-        mSteeringWheelSensor.start();
+        //mSteeringWheelSensor.start();
     }
 
     @Override
@@ -55,6 +55,19 @@ public class MainPresenter implements MvpMainPresenter, SteeringWheelListener, B
     public void onDeviceDisconnected() {
         mBluetoothConnected = false;
         mView.showMessage(MessageConstants.DEVICE_DISCONNECTED);
+    }
+
+    @Override
+    public void onSensorButtonClicked() {
+        if (mSteeringWheelSensor.isEnable()) {
+            mSteeringWheelSensor.stop();
+            mView.showMessage(MessageConstants.STERERING_WHEEL_PAUSED);
+            mView.turnSensorButtonOn();
+        } else {
+            mSteeringWheelSensor.start();
+            mView.showMessage(MessageConstants.STERERING_WHEEL_STARTED);
+            mView.turnSensorButtonOff();
+        }
     }
 
     @Override

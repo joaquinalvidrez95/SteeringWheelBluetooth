@@ -10,4 +10,8 @@ public interface MvpMainView extends Contextable {
     void showMessage(String message);
 
     void showSteeringWheelState(String state);
+
+    void turnSensorButtonOn();
+
+    void turnSensorButtonOff();
 }

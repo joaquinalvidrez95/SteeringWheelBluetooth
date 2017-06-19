@@ -2,6 +2,7 @@ package com.joaquinalan.steeringwheelbluetooth.model.bluetooth.bluetoothconnecti
 
 import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 import java.io.IOException;
@@ -64,9 +65,32 @@ public class BluetoothWorking extends Thread {
         mmOutStream = tmpOut;
     }
 
-    @Override
     public void run() {
-        while (true) ;
+        mmBuffer = new byte[4];
+        int numBytes; // bytes returned from read()
+
+        // Keep listening to the InputStream until an exception occurs.
+        while (true) {
+            try {
+                //Read from the InputStream.
+
+                numBytes = mmInStream.read(mmBuffer);
+
+                Message readMsg = mHandler.obtainMessage(
+                BluetoothConstants.MESSAGE_READ, numBytes, -1,
+                        mmBuffer);
+                readMsg.sendToTarget();
+
+                String readMessage = new String(mmBuffer, 0, numBytes);
+                Log.d(TAG, readMessage);
+                // Send the obtained bytes to the UI activity.
+                //Log.d(TAG, "¿Qué pedo está pasando here?");
+
+            } catch (IOException e) {
+                Log.d(TAG, "Input stream was disconnected", e);
+                break;
+            }
+        }
     }
 
     // Call this from the main activity to send data to the remote device.

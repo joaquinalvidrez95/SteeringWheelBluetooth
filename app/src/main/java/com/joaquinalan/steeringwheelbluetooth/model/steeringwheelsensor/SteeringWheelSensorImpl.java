@@ -26,6 +26,9 @@ public class SteeringWheelSensorImpl implements SensorEventListener, SteeringWhe
     SteeringWheelListener mSteeringWheelListener;
 
     private int mSteeringWheelState;
+    private boolean mState;
+    private final boolean ON = true;
+    private final boolean OFF = false;
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
@@ -80,11 +83,18 @@ public class SteeringWheelSensorImpl implements SensorEventListener, SteeringWhe
     @Override
     public void stop() {
         mSensorManager.unregisterListener(this);
+        mState = OFF;
     }
 
     @Override
     public void start() {
         mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         mSensorManager.registerListener(this, mMagnetometer, SensorManager.SENSOR_DELAY_NORMAL);
+        mState = ON;
+    }
+
+    @Override
+    public boolean isEnable() {
+        return mState;
     }
 }

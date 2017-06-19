@@ -17,29 +17,20 @@
         android:gravity="center"
         android:text="Hello World!" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingactionbutton_main_sensor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_marginBottom="@dimen/marginbottom_fabsensor"
+        android:src="@drawable/ic_main_play" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatingactionbutton_main_bluetooth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/ic_main_bluetooth" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floatingactionbutton_main_sensor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/floatingactionbutton_main_bluetooth"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="10dp"
-            android:src="@drawable/ic_main_play" />
-
-
-    </RelativeLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingactionbutton_main_bluetooth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:src="@drawable/ic_main_bluetooth" />
 
 
 </android.support.design.widget.CoordinatorLayout>

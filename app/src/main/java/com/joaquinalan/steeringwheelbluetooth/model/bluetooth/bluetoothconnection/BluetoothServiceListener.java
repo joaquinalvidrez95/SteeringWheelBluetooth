@@ -6,4 +6,6 @@ package com.joaquinalan.steeringwheelbluetooth.model.bluetooth.bluetoothconnecti
 
 public interface BluetoothServiceListener {
     void onConnectedSocket();
+
+    void onConnectionFailed();
 }

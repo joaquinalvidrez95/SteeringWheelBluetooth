@@ -5,6 +5,7 @@ import com.joaquinalan.steeringwheelbluetooth.model.bluetooth.bluetoothconnectio
 import com.joaquinalan.steeringwheelbluetooth.model.steeringwheelsensor.SteeringWheelListener;
 import com.joaquinalan.steeringwheelbluetooth.model.steeringwheelsensor.SteeringWheelSensor;
 import com.joaquinalan.steeringwheelbluetooth.model.steeringwheelsensor.SteeringWheelSensorImpl;
+import com.joaquinalan.steeringwheelbluetooth.view.MessageConstants;
 import com.joaquinalan.steeringwheelbluetooth.view.MvpMainView;
 
 /**
@@ -41,17 +42,44 @@ public class MainPresenter implements MvpMainPresenter, SteeringWheelListener, B
     @Override
     public void onDeviceChoosen(String deviceAdress) {
         mBluetooth.startConnection(deviceAdress, this);
+        mBluetooth.setListener(this);
+    }
+
+    @Override
+    public void onDeviceConnected() {
+        mBluetoothConnected = true;
+        mView.showMessage(MessageConstants.DEVICE_CONNECTED);
+    }
+
+    @Override
+    public void onDeviceDisconnected() {
+        mBluetoothConnected = false;
+        mView.showMessage(MessageConstants.DEVICE_DISCONNECTED);
     }
 
     @Override
     public void onSteeringWheelChanged(int steeringWheelState) {
         String state = String.valueOf(steeringWheelState);
         mView.showSteeringWheelState(state);
-        mBluetooth.write()
+        if (mBluetoothConnected) {
+            writeData((byte) steeringWheelState);
+        }
+    }
+
+    private void writeData(byte steeringWheelState) {
+        byte[] dataInBytesstate = new byte[1];
+        dataInBytesstate[0] = steeringWheelState;
+        mBluetooth.write(dataInBytesstate);
     }
 
     @Override
     public void onConnectedSocket() {
         mBluetoothConnected = true;
+        mView.showMessage(MessageConstants.BLUETOOTH_CONNECTED);
+    }
+
+    @Override
+    public void onConnectionFailed() {
+        mView.showMessage(MessageConstants.CONNECTION_FAILED);
     }
 }

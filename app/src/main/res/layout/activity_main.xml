@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,12 +9,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.joaquinalan.steeringwheelbluetooth.view.activity.MainActivity">
 
-    <!--<android.support.v7.widget.Toolbar-->
-    <!--android:id="@+id/toolbar_main"-->
-    <!--app:layout_scrollFlags="scroll|enterAlways"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="?attr/actionBarSize"-->
-    <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />-->
 
     <TextView
         android:id="@+id/textview_main_steeringwheelstate"
@@ -23,11 +17,29 @@
         android:gravity="center"
         android:text="Hello World!" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingactionbutton_main_bluetooth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/ic_main_bluetooth" />
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingactionbutton_main_bluetooth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_main_bluetooth" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingactionbutton_main_sensor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/floatingactionbutton_main_bluetooth"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_main_play" />
+
+
+    </RelativeLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

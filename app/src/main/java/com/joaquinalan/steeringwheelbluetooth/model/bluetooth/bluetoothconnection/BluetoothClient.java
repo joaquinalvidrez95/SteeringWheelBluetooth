@@ -47,8 +47,10 @@ public class BluetoothClient extends Thread {
             // until it succeeds or throws an exception.
             mmSocket.connect();
             Log.e(TAG, "Si se pudo man");
+            mBluetoothConnection.onConnectedSocket(mmSocket);
         } catch (IOException connectException) {
             // Unable to connect; close the socket and return.
+            mBluetoothConnection.onConnectionFailed();
             Log.e(TAG, "Te apendejaste wey");
             try {
                 mmSocket.close();
@@ -61,7 +63,6 @@ public class BluetoothClient extends Thread {
 
         // The connection attempt succeeded. Perform work associated with
         // the connection in a separate thread.
-        mBluetoothConnection.onConnectedSocket(mmSocket);
     }
 
     // Closes the client socket and causes the thread to finish.

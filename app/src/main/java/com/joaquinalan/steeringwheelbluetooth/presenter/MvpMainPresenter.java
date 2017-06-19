@@ -13,4 +13,8 @@ public interface MvpMainPresenter {
     void onPause();
 
     void onDeviceChoosen(String deviceAdress);
+
+    void onDeviceConnected();
+
+    void onDeviceDisconnected();
 }

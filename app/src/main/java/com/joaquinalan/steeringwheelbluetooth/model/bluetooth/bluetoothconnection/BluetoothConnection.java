@@ -8,4 +8,6 @@ import android.bluetooth.BluetoothSocket;
 
 public interface BluetoothConnection {
     void onConnectedSocket(BluetoothSocket bluetoothSocket);
+
+    void onConnectionFailed();
 }

@@ -1,7 +1,10 @@
 package com.joaquinalan.steeringwheelbluetooth.view.activity;
 
+import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.joaquinalan.steeringwheelbluetooth.R;
+import com.joaquinalan.steeringwheelbluetooth.broadcastreceiver.BroadcastConnectionState;
 import com.joaquinalan.steeringwheelbluetooth.presenter.MainPresenter;
 import com.joaquinalan.steeringwheelbluetooth.presenter.MvpMainPresenter;
 import com.joaquinalan.steeringwheelbluetooth.view.MvpMainView;
@@ -21,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FloatingActionButton mFloatingActionButtonBluetooth;
     private MvpMainPresenter mPresenter;
     private TextView mTextViewState;
+    private BroadcastReceiver mBroadcastConnectionState;
 //    private SteeringWheelSensor mSteeringWheelSensor;
 
     @Override
@@ -34,16 +39,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mFloatingActionButtonBluetooth.setOnClickListener(this);
 
-        //mSteeringWheelSensor.start();
+        mBroadcastConnectionState = new BroadcastConnectionState(mPresenter);
 
-//
-//        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar_main);
-//
-//        if (mToolbar != null) {
-//            setSupportActionBar(mToolbar);
-//            getSupportActionBar().setTitle(R.string.app_name);
-//            getSupportActionBar().setIcon(R.drawable.ic_main_steeringwheel);
-//        }
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
+        intentFilter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
+        registerReceiver(mBroadcastConnectionState, intentFilter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mBroadcastConnectionState);
     }
 
     @Override

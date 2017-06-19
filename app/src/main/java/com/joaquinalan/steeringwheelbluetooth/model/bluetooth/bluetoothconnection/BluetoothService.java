@@ -101,7 +101,6 @@ public class BluetoothService implements BluetoothConnection {
     @Override
     public void onConnectedSocket(BluetoothSocket bluetoothSocket) {
         Log.d(TAG, "connected: Starting.");
-        mBluetoothServiceListener.onConnectedSocket();
         // Cancel the thread that completed the connection
 //        if (mConnectThread != null) {
 //            mConnectThread.cancel();
@@ -123,6 +122,12 @@ public class BluetoothService implements BluetoothConnection {
         //mBluetoothWorking = new BluetoothWorking(bluetoothSocket, mHandler);
         mBluetoothWorking = new BluetoothWorking(bluetoothSocket);
         mBluetoothWorking.start();
+        mBluetoothServiceListener.onConnectedSocket();
+    }
+
+    @Override
+    public void onConnectionFailed() {
+        mBluetoothServiceListener.onConnectionFailed();
     }
 
 //    private class AcceptThread extends Thread {

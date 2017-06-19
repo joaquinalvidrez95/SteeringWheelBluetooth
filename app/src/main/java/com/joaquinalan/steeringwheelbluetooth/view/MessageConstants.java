@@ -8,6 +8,10 @@ public interface MessageConstants {
     String BLUETOOTH_DISABLED = "Bluetooth disabled";
     String BLUETOOTH_ENEABLED = "Bluetooth eneabled";
     String CHOOSE_A_DEVICE = "Choose a bluetooth device";
-    String ENABLE_BLUETOOTH = "Eneable your bluetooth please, don't pass of dick";
+    //String ENABLE_BLUETOOTH = "Eneable your bluetooth please";
     String NOT_HAVING_BLUETOOTH = "You don't have bluetooth";
+    String BLUETOOTH_CONNECTED = "Bluetooth Connected";
+    String CONNECTION_FAILED = "Connection failed";
+    String DEVICE_DISCONNECTED = "Device disconnected";
+    String DEVICE_CONNECTED = "Device connected";
 }

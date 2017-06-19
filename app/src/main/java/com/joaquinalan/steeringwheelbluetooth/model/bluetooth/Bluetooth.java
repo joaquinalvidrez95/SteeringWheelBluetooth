@@ -28,6 +28,16 @@ public class Bluetooth implements BluetoothServiceListener {
         mDiscoveredDevices = new BluetoothDevicesCollection();
     }
 
+    public Bluetooth(BluetoothServiceListener bluetoothServiceListener) {
+        this.mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        mDiscoveredDevices = new BluetoothDevicesCollection();
+        mBluetoothServiceListener = bluetoothServiceListener;
+    }
+
+    public void setListener(BluetoothServiceListener listener) {
+        mBluetoothServiceListener = listener;
+    }
+
     public void startDiscovery() {
         mBluetoothAdapter.startDiscovery();
     }
@@ -96,7 +106,7 @@ public class Bluetooth implements BluetoothServiceListener {
     }
 
     public void startConnection(String deviceAdress, BluetoothServiceListener bluetoothServiceListener) {
-        mBluetoothServiceListener = bluetoothServiceListener;
+        //mBluetoothServiceListener = bluetoothServiceListener;
         mBluetoothService = new BluetoothService(this);
         for (BluetoothDevice bluetoothDevice : mBluetoothAdapter.getBondedDevices()) {
             if (bluetoothDevice.getAddress().equals(deviceAdress)) {
@@ -107,15 +117,18 @@ public class Bluetooth implements BluetoothServiceListener {
 
     @Override
     public void onConnectedSocket() {
-        mBluetoothServiceListener.onConnectedSocket();
+        if (!(mBluetoothServiceListener == null)) {
+            mBluetoothServiceListener.onConnectedSocket();
+        }
     }
 
-//    @Override
-//    public void onSensorChanged(float[] mOrientationAngles) {
-//        int angle = CalculatorSteeringWheelState.calculateSteeringWheelState(mOrientationAngles);
-//        byte[] bytes;
-//        bytes = new byte[1];
-//        bytes[1] = (byte) angle;
-//        mBluetoothService.write(bytes);
-//    }
+    @Override
+    public void onConnectionFailed() {
+        //mBluetoothServiceListener.onConnectionFailed();
+    }
+
+    public void write(byte[] dataInBytes) {
+        mBluetoothService.write(dataInBytes);
+    }
+
 }

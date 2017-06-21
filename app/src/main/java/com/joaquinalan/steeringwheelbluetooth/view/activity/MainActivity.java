@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
@@ -26,8 +27,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FloatingActionButton mFloatingActionButtonSensor;
     private MvpMainPresenter mPresenter;
     private TextView mTextViewState;
+    private TextView mTextViewConnectionState;
     private BroadcastReceiver mBroadcastConnectionState;
-//    private SteeringWheelSensor mSteeringWheelSensor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mFloatingActionButtonSensor = (FloatingActionButton) findViewById(R.id.floatingactionbutton_main_sensor);
 
         mTextViewState = (TextView) findViewById(R.id.textview_main_steeringwheelstate);
+        mTextViewConnectionState = (TextView) findViewById(R.id.textview_main_connectionstate);
 
         mFloatingActionButtonBluetooth.setOnClickListener(this);
         mFloatingActionButtonSensor.setOnClickListener(this);
@@ -108,7 +110,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void showMessage(String message) {
         Snackbar snackbar = Snackbar
-                .make(findViewById(R.id.floatingactionbutton_main_bluetooth), message, Snackbar.LENGTH_LONG);
+                .make(findViewById(R.id.floatingactionbutton_main_bluetooth),
+                        message, Snackbar.LENGTH_LONG);
         snackbar.show();
     }
 
@@ -121,34 +124,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void turnSensorButtonOn() {
         Snackbar.make(findViewById(R.id.floatingactionbutton_main_sensor),
                 MessageConstants.STERERING_WHEEL_PAUSED, Snackbar.LENGTH_LONG).show();
-        mFloatingActionButtonSensor.setBackgroundResource(R.drawable.ic_main_play);
+        mFloatingActionButtonSensor.setImageDrawable(ContextCompat.getDrawable(getContext(),
+                R.drawable.ic_main_play));
     }
 
     @Override
     public void turnSensorButtonOff() {
         Snackbar.make(findViewById(R.id.floatingactionbutton_main_sensor),
                 MessageConstants.STERERING_WHEEL_STARTED, Snackbar.LENGTH_LONG).show();
-        mFloatingActionButtonSensor.setBackgroundResource(R.drawable.ic_main_pause);
+        mFloatingActionButtonSensor.setImageDrawable(ContextCompat.getDrawable(getContext(),
+                R.drawable.ic_main_pause));
+    }
+
+    @Override
+    public void changeConnectionState(String connectionState) {
+        mTextViewConnectionState.setText(connectionState);
     }
 
     @Override
     public Context getContext() {
         return getApplicationContext();
     }
-
-//    @Override
-//    public void onSteeringWheelChanged(int steeringWheelState) {
-//        mPresenter.onSteeringWheelChanged(steeringWheelState);
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.item_optionsmenu_bluetooth:
-//                Intent bluetoothIntent = new Intent(this, BluetoothActivity.class);
-//                startActivity(bluetoothIntent);
-//                break;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 }

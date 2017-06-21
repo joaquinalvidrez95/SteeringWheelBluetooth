@@ -2,6 +2,7 @@ package com.joaquinalan.steeringwheelbluetooth.presenter;
 
 import com.joaquinalan.steeringwheelbluetooth.model.bluetooth.Bluetooth;
 import com.joaquinalan.steeringwheelbluetooth.model.bluetooth.bluetoothconnection.BluetoothServiceListener;
+import com.joaquinalan.steeringwheelbluetooth.model.steeringwheelsensor.Robot;
 import com.joaquinalan.steeringwheelbluetooth.model.steeringwheelsensor.SteeringWheelListener;
 import com.joaquinalan.steeringwheelbluetooth.model.steeringwheelsensor.SteeringWheelSensor;
 import com.joaquinalan.steeringwheelbluetooth.model.steeringwheelsensor.SteeringWheelSensorImpl;
@@ -26,6 +27,7 @@ public class MainPresenter implements MvpMainPresenter, SteeringWheelListener, B
 
     @Override
     public void onBluetoothButtonClicked() {
+        mView.turnSensorButtonOn();
         mView.startBluetoothActivity();
     }
 
@@ -48,12 +50,14 @@ public class MainPresenter implements MvpMainPresenter, SteeringWheelListener, B
     @Override
     public void onDeviceConnected() {
         mBluetoothConnected = true;
+        mView.changeConnectionState(MessageConstants.DEVICE_CONNECTED);
         mView.showMessage(MessageConstants.DEVICE_CONNECTED);
     }
 
     @Override
     public void onDeviceDisconnected() {
         mBluetoothConnected = false;
+        mView.changeConnectionState(MessageConstants.DEVICE_DISCONNECTED);
         mView.showMessage(MessageConstants.DEVICE_DISCONNECTED);
     }
 
@@ -61,18 +65,19 @@ public class MainPresenter implements MvpMainPresenter, SteeringWheelListener, B
     public void onSensorButtonClicked() {
         if (mSteeringWheelSensor.isEnable()) {
             mSteeringWheelSensor.stop();
-            mView.showMessage(MessageConstants.STERERING_WHEEL_PAUSED);
+            //mView.showMessage(MessageConstants.STERERING_WHEEL_PAUSED);
             mView.turnSensorButtonOn();
         } else {
             mSteeringWheelSensor.start();
-            mView.showMessage(MessageConstants.STERERING_WHEEL_STARTED);
+            //mView.showMessage(MessageConstants.STERERING_WHEEL_STARTED);
             mView.turnSensorButtonOff();
         }
     }
 
     @Override
     public void onSteeringWheelChanged(int steeringWheelState) {
-        String state = String.valueOf(steeringWheelState);
+        //String state = String.valueOf(steeringWheelState);
+        String state = Robot.getRobotState(steeringWheelState);
         mView.showSteeringWheelState(state);
         if (mBluetoothConnected) {
             writeData((byte) steeringWheelState);

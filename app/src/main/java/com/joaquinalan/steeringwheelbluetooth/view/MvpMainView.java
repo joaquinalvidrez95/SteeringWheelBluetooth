@@ -14,4 +14,6 @@ public interface MvpMainView extends Contextable {
     void turnSensorButtonOn();
 
     void turnSensorButtonOff();
+
+    void changeConnectionState(String connectionState);
 }

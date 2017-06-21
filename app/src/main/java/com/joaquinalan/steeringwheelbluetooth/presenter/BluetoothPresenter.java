@@ -46,7 +46,7 @@ public class BluetoothPresenter implements MvpBluetoothPresenter {
     public void onCreate() {
         if (mBluetooth.isBluetoothEnabled()) {
             mBluetooth.startDiscovery();
-            mView.showMessage(MessageConstants.CHOOSE_A_DEVICE);
+            mView.showMessage(MessageConstants.SELECT_A_DEVICE);
         } else {
             mBluetooth.enable();
             //mView.showMessage(MessageConstants.ENABLE_BLUETOOTH);
